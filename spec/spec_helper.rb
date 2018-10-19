@@ -1,7 +1,8 @@
 require 'bundler/setup'
 require 'simplecov'
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
-
+require 'coveralls'
+Coveralls.wear!
 SimpleCov.start
 require 'k7'
 

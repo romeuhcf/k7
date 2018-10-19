@@ -12,8 +12,6 @@ module K7
       end
 
       def set(request, response)
-        puts "SET: #{request.options.fetch(:method)}"
-
         K7.emit_request(req = k7_request(request))
         K7.emit_response(k7_response(response), req)
         nil

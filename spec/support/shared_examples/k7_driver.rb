@@ -1,5 +1,4 @@
 RSpec.shared_examples 'k7_driver' do |verbs, emiter|
-  puts "TESTING EMITTER #{emiter}"
   describe 'event emission' do
     before do
       expect(K7).to receive(:emit_request)
@@ -54,9 +53,9 @@ RSpec.shared_examples 'k7_driver' do |verbs, emiter|
         end
 
         it do
-          puts "expect(#{request.verb}).to eq #{verb}"
           expect(request.verb).to eq verb.to_s
         end
+
         describe 'post body'
         describe 'body' do
           it { expect(request.body).to be_instance_of String }

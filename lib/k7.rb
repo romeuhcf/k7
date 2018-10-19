@@ -1,11 +1,11 @@
-require "k7/version"
+require 'k7/version'
 
 module K7
   def self.emit_request(req)
     Testing.last_request = req
   end
 
-  def self.emit_response(response, request)
+  def self.emit_response(response, _request)
     Testing.last_response = response
   end
 
@@ -16,10 +16,9 @@ module K7
       port: uri.port,
       path: uri.path,
       query: uri.query,
-      fragment: uri.fragment,
+      fragment: uri.fragment
     }
   end
-
 
   def self.canonicalize_headers(h)
     headers = {}
@@ -33,13 +32,12 @@ module K7
     k.downcase
   end
 
-
   module Testing
     def self.reset!
       @@lest_response = nil
       @@lest_request = nil
     end
-    [ :last_request ,:last_response].each do |att|
+    [:last_request, :last_response].each do |att|
       eval "@@#{att}=nil"
       eval "def self.#{att}=(v); @@#{att} = v ; end "
       eval "def self.#{att}; @@#{att} ; end "

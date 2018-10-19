@@ -7,7 +7,7 @@ module K7
         @memory = {}
       end
 
-      def get(request)
+      def get(_request)
         nil
       end
 
@@ -22,15 +22,14 @@ module K7
       def k7_request(req)
         uri = URI.parse(req.base_url)
         k7_uri = K7.uri_to_hash(uri)
-        OpenStruct.new( _request: req,
+        OpenStruct.new(_request: req,
                        uri: k7_uri,
-                       query_params: CGI::parse(k7_uri[:query]||''),
+                       query_params: CGI.parse(k7_uri[:query] || ''),
                        params: req.options[:params],
                        verb: req.options.fetch(:method).to_s.downcase,
                        headers: K7.canonicalize_headers(req.options.fetch(:headers)),
                        body: req.encoded_body,
-                       emiter: 'typhoeus',
-                      )
+                       emiter: 'typhoeus')
       end
 
       def k7_response(res)
@@ -38,11 +37,11 @@ module K7
         OpenStruct.new(status: res.response_code,
                        headers: headers,
                        body: res.body,
-                       emiter: 'typhoeus',
-                      )
+                       emiter: 'typhoeus')
       end
 
       protected
+
       def self.install!
         ::Typhoeus::Config.cache = K7::Hooks::Typhoeus.new
       end

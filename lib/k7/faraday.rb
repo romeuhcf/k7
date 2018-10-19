@@ -9,7 +9,7 @@ module K7
         if ::Faraday.default_adapter == :net_http
           NetHttp.install!
         else
-          fail "Don't know how to handle faraday default_adapter '#{::Faraday.default_adapter}'"
+          raise "Don't know how to handle faraday default_adapter '#{::Faraday.default_adapter}'"
         end
       end
     end

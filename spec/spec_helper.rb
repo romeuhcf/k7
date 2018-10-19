@@ -1,18 +1,22 @@
-require "bundler/setup"
+require 'bundler/setup'
 require 'simplecov'
-require 'pry-debugger' rescue nil
-Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
+begin
+  require 'pry-debugger'
+rescue
+  nil
+end
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
 SimpleCov.start
-require "k7"
+require 'k7'
 
 RSpec.configure do |config|
   def base_url
-    "https://jsonplaceholder.typicode.com"
-    "http://127.0.0.1:8000"
+    'https://jsonplaceholder.typicode.com'
+    'http://127.0.0.1:8000'
   end
   # Enable flags like --only-failures and --next-failure
-  config.example_status_persistence_file_path = ".rspec_status"
+  config.example_status_persistence_file_path = '.rspec_status'
 
   config.before(:each) { K7::Testing.reset! }
   config.after(:each) { K7::Testing.reset! }
@@ -23,5 +27,4 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
   config.order = :random
-
 end

@@ -44,6 +44,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-rspec'
+  spec.add_development_dependency 'rack'
+  spec.add_development_dependency 'thin'
   if RUBY_VERSION >= '2.0.0'
     spec.add_development_dependency 'byebug'
   else

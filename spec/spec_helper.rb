@@ -1,10 +1,5 @@
 require 'bundler/setup'
 require 'simplecov'
-begin
-  require 'pry-debugger'
-rescue LoadError
-  nil
-end
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
 SimpleCov.start

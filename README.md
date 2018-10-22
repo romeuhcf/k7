@@ -7,16 +7,12 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'k7'
+gem 'k7', git: 'https://github.com/romeuhcf/k7.git'
 ```
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install k7
 
 ## Usage
 

@@ -1,7 +1,6 @@
 require 'k7/version'
 
 module K7
-
   def self.reset_observers!
     @@observers = {}
   end
@@ -26,9 +25,9 @@ module K7
   end
 
   def self.observers(kind)
-    fail "invalid observer kind '#{kind}'" unless [:request, :response].include?(kind)
+    raise "invalid observer kind '#{kind}'" unless [:request, :response].include?(kind)
     @@observers ||= {}
-    @@observers[Thread.current]||={}
+    @@observers[Thread.current] ||= {}
     @@observers[Thread.current][kind] ||= []
   end
 
@@ -55,4 +54,3 @@ module K7
     k.downcase
   end
 end
-

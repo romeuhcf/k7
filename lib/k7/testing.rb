@@ -25,11 +25,10 @@ module K7
   end
 end
 
-
 RSpec.configure do |config|
   config.before(:each) do
-  K7::Testing.reset!
-  K7.register_observer(:response, K7::Testing, :last_response=)
-  K7.register_observer(:request, K7::Testing, :last_request=)
+    K7::Testing.reset!
+    K7.register_observer(:response, K7::Testing, :last_response=)
+    K7.register_observer(:request, K7::Testing, :last_request=)
   end
 end

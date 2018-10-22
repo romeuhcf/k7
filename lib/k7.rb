@@ -1,12 +1,35 @@
 require 'k7/version'
 
 module K7
-  def self.emit_request(req)
-    Testing.last_request = req
+
+  def self.reset_observers!
+    @@observers = {}
   end
 
-  def self.emit_response(response, _request)
-    Testing.last_response = response
+  def self.emit_request(req)
+    notify(:request, req)
+  end
+
+  def self.emit_response(response, request)
+    notify(:response, response, request)
+  end
+
+  def self.notify(kind, *obj)
+    observers(kind).each do |tuple|
+      receiver, method = *tuple
+      receiver.send(method, *obj)
+    end
+  end
+
+  def self.register_observer(kind, klass, method = :notify)
+    observers(kind) << [klass, method]
+  end
+
+  def self.observers(kind)
+    fail "invalid observer kind '#{kind}'" unless [:request, :response].include?(kind)
+    @@observers ||= {}
+    @@observers[Thread.current]||={}
+    @@observers[Thread.current][kind] ||= []
   end
 
   def self.uri_to_hash(uri)
@@ -31,16 +54,5 @@ module K7
   def self.canonicalize_key(k)
     k.downcase
   end
-
-  module Testing
-    def self.reset!
-      @@lest_response = nil
-      @@lest_request = nil
-    end
-    [:last_request, :last_response].each do |att|
-      eval "@@#{att}=nil"
-      eval "def self.#{att}=(v); @@#{att} = v ; end "
-      eval "def self.#{att}; @@#{att} ; end "
-    end
-  end
 end
+

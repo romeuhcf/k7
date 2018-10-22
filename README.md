@@ -20,7 +20,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Have an observer:
+```
+class MyObserver
+  def on_request(request)
+    # do something with request
+  end
+
+  def on_response(response, _request)
+    # do something with response and related request
+  end
+end
+```
+
+Register it:
+```
+K7.register_observer(:request, MyObserver.new, :on_request)
+K7.register_observer(:response, AnotherObserver.new, :on_response)
+```
 
 ## Development
 

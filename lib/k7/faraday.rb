@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'k7'
 require 'k7/net_http'
 require 'faraday'
